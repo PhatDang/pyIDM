@@ -9,7 +9,8 @@
 import os
 import time
 from threading import Thread
-from .video import merge_video_audio, youtube_dl_downloader, unzip_ffmpeg, pre_process_hls, post_process_hls  # unzip_ffmpeg required here for ffmpeg callback
+from .video import merge_video_audio, youtube_dl_downloader, unzip_ffmpeg, pre_process_hls, \
+    post_process_hls  # unzip_ffmpeg required here for ffmpeg callback
 from . import config
 from .config import Status, active_downloads, APP_NAME
 from .utils import (log, size_format, popup, notify, delete_folder, delete_file, rename_file, load_json, save_json)
@@ -159,7 +160,6 @@ def thread_manager(d):
 
 
 def file_manager(d, keep_segments=False):
-
     while True:
         time.sleep(1)
 
@@ -183,7 +183,7 @@ def file_manager(d, keep_segments=False):
                         trgt_file.write(src_file.read())
 
                 seg.completed = True
-                log('>> completed segment: ',  os.path.basename(seg.name))
+                log('>> completed segment: ', os.path.basename(seg.name))
 
                 if not keep_segments:
                     delete_file(seg.name)

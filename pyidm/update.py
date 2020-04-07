@@ -183,5 +183,3 @@ def update_youtube_dl():
     delete_folder('temp')
     log('delete temp folder')
     log('youtube_dl module ..... done updating')
-
-

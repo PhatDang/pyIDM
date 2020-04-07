@@ -15,6 +15,7 @@ import subprocess
 import importlib.util
 
 from . import config
+
 # import config
 
 # read dependencies from requirement.txt, 
@@ -34,7 +35,7 @@ else:
 
 try:
     with open(file_name) as fh:
-    	ext_pkgs = [x.strip() for x in fh.readlines()]
+        ext_pkgs = [x.strip() for x in fh.readlines()]
 except Exception as e:
     # no need to print output as an error since requirements.txt won't be available in pypi release and requirements 
     # will be installed automatically 
@@ -134,14 +135,13 @@ def install_pkgs(pkgs):
 
 
 def install_missing_pkgs():
+    if missing_pkgs:
+        print('require pkgs: ', ext_pkgs)
+        print('missing pkgs: ', missing_pkgs)
+        done = install_pkgs(missing_pkgs)
+        if not done:
+            return False
 
-	if missing_pkgs:
-	    print('require pkgs: ', ext_pkgs)
-	    print('missing pkgs: ', missing_pkgs)
-	    done = install_pkgs(missing_pkgs) 
-	    if not done:
-	        return False
-	
-	return True 
+    return True
 
-# install_missing_pkgs()
+    # install_missing_pkgs()

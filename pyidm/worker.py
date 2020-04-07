@@ -281,6 +281,3 @@ class Worker:
         # check if we getting over sized
         if self.current_filesize > self.seg.size > 0:
             return -1  # abort
-
-
-

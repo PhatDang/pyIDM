@@ -104,7 +104,6 @@ class Segment:
 
 
 class DownloadItem:
-
     # animation ['►►   ', '  ►►'] › ► ⤮ ⇴ ↹ ↯  ↮  ₡ ['⯈', '▼', '⯇', '▲']
     # ['⏵⏵', '  ⏵⏵'] ['›', '››', '›››', '››››', '›››››']
     animation_icons = {config.Status.downloading: ['❯', '❯❯', '❯❯❯', '❯❯❯❯'], config.Status.pending: ['⏳'],
@@ -258,7 +257,8 @@ class DownloadItem:
 
     def save_progress_info(self):
         """save segments info to disk"""
-        seg_list = [{'name': seg.name, 'downloaded':seg.downloaded, 'completed':seg.completed, 'size':seg.size} for seg in self.segments]
+        seg_list = [{'name': seg.name, 'downloaded': seg.downloaded, 'completed': seg.completed, 'size': seg.size} for
+                    seg in self.segments]
         file = os.path.join(self.temp_folder, 'progress_info.txt')
         save_json(file, seg_list)
 
@@ -284,7 +284,7 @@ class DownloadItem:
         if not size and self._segments:
             sizes = [seg.size for seg in self.segments if seg.size]
             if sizes:
-                avg_seg_size = sum(sizes)//len(sizes)
+                avg_seg_size = sum(sizes) // len(sizes)
                 size = avg_seg_size * len(self._segments)  # estimated
 
         if not size:
@@ -296,7 +296,7 @@ class DownloadItem:
     @property
     def speed(self):
         """return an average of some speed values will give a stable speed reading"""
-        if self.status != config.Status.downloading: # or not self.speed_buffer:
+        if self.status != config.Status.downloading:  # or not self.speed_buffer:
             self._speed = 0
         else:
             if not self.prev_downloaded_value:
@@ -304,7 +304,7 @@ class DownloadItem:
 
             time_passed = time.time() - self.speed_timer
             if time_passed >= self.speed_refresh_rate:
-                self.speed_timer= time.time()
+                self.speed_timer = time.time()
                 delta = self.downloaded - self.prev_downloaded_value
                 self.prev_downloaded_value = self.downloaded
                 _speed = delta / time_passed
@@ -510,4 +510,3 @@ class DownloadItem:
 
         if self.type == 'dash':
             delete_file(self.audio_file)
-

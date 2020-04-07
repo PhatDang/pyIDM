@@ -74,7 +74,7 @@ class Video(DownloadItem):
 
         # streams
         self.stream_names = []  # names in a list
-        self.raw_stream_names = [] # names but without size
+        self.raw_stream_names = []  # names but without size
         self.stream_list = []  # streams in a list
         self.video_streams = {}
         self.mp4_videos = {}
@@ -84,7 +84,7 @@ class Video(DownloadItem):
         self.raw_streams = {}
 
         self.stream_menu = []  # it will be shown in video quality combo box != self.stream.names
-        self.raw_stream_menu = [] # same as self.stream_menu but without size
+        self.raw_stream_menu = []  # same as self.stream_menu but without size
         self._selected_stream = None
 
         # self.audio_url = None  # None for non dash videos
@@ -120,7 +120,7 @@ class Video(DownloadItem):
         streams = {**video_streams, **audio_streams}
 
         stream_menu = ['● Video streams:                     '] + list(mp4_videos.keys()) + list(other_videos.keys()) \
-                    + ['', '● Audio streams:                 '] + list(audio_streams.keys())
+                      + ['', '● Audio streams:                 '] + list(audio_streams.keys())
 
         # assign variables
         self.stream_list = list(streams.values())
@@ -382,7 +382,7 @@ def merge_video_audio(video, audio, output):
         error, output = run_command(cmd2, verbose=verbose, shell=True)
 
     return error, output
-            
+
 
 def import_ytdl():
     # import youtube_dl using thread because it takes sometimes 20 seconds to get imported and impact app startup time
@@ -402,7 +402,7 @@ def parse_bytes(bytestr):
     if matchobj is None:
         return None
     number = float(matchobj.group(1))
-    unit = matchobj.group(2).lower()[0:1] if  matchobj.group(2) else ''
+    unit = matchobj.group(2).lower()[0:1] if matchobj.group(2) else ''
     multiplier = 1024.0 ** 'bkmgtpezy'.index(unit)
     return int(round(number * multiplier))
 
@@ -457,7 +457,7 @@ def youtube_dl_downloader(d=None, extra_options=None, use_subprocess=True):
             if d.status == config.Status.cancelled:
                 log('youtube_dl_downloader()> killing subprocess, cancelled by user')
                 process.kill()
-                return()
+                return ()
 
             # parse line looking for progress info example output: [download]   0.0% of 4.63MiB at 32.00KiB/s ETA 02:28
             if line.startswith('[download]'):
@@ -724,20 +724,3 @@ def post_process_hls(d):
     log('post_process_hls()> done processing', d.name)
 
     return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

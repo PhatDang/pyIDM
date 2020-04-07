@@ -16,23 +16,23 @@ import os, sys
 from threading import Thread
 import time
 
-
 # This code should stay on top to handle relative imports in case of direct call of pyIDM.py
 if __package__ is None:
     path = os.path.realpath(os.path.abspath(__file__))
     sys.path.insert(0, os.path.dirname(path))
     sys.path.insert(0, os.path.dirname(os.path.dirname(path)))
-    
+
     __package__ = 'pyidm'
+
     import pyidm
 
 # check and auto install external modules defined in requirements.txt
 from .dependency import install_missing_pkgs
-done = install_missing_pkgs()  
+
+done = install_missing_pkgs()
 if not done:
     print('Missing dependencies, quit application')
     sys.exit(1)  # will exit application if failed to install
-
 
 # local modules
 from .utils import *
@@ -63,8 +63,8 @@ def clipboard_listener():
         # if config.clipboard_q.qsize() > 0:
         #     k, v = config.clipboard_q.get()
         #     if k == 'status' and v == config.Status.cancelled: break
-            # elif k == 'monitor':
-            #     monitor = v
+        # elif k == 'monitor':
+        #     monitor = v
 
         # monitor global termination flag
         if config.terminate:
@@ -131,4 +131,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

@@ -34,6 +34,7 @@ config.all_themes = natural_sort(sg.ListOfLookAndFeelValues())
 sg.SetOptions(icon=config.APP_ICON, font='Helvetica 11', auto_size_buttons=True, progress_meter_border_depth=0,
               border_width=1)
 
+
 # todo: change buttons to images, pysimplegui can set transparent buttons see below link
 # https://github.com/PySimpleGUI/PySimpleGUI/issues/142#issuecomment-590126165
 
@@ -73,8 +74,8 @@ class MainWindow:
         self.disabled = True  # for download button
 
         # download list
-        self.d_headers = ['i', 'num', 'name', 'progress', 'speed', 'time_left', 'downloaded', 'total_size', 'status',]
-                          # 'resumable', 'folder', 'max_connections', 'live_connections', 'remaining_parts']
+        self.d_headers = ['i', 'num', 'name', 'progress', 'speed', 'time_left', 'downloaded', 'total_size', 'status', ]
+        # 'resumable', 'folder', 'max_connections', 'live_connections', 'remaining_parts']
         self.d_list = d_list  # list of DownloadItem() objects
         self.selected_row_num = None
         self._selected_d = None
@@ -183,7 +184,7 @@ class MainWindow:
 
             [sg.Column([[sg.B('Download', font='Helvetica 14', border_width=0, pad=(0, 0), size=(10, 1),
                               tooltip='Main download Engine'),
-                         sg.B('▼',  font='Helvetica 14', pad=(5, 0), border_width=0, key='ytdl_dl_btn', size=(2, 1),
+                         sg.B('▼', font='Helvetica 14', pad=(5, 0), border_width=0, key='ytdl_dl_btn', size=(2, 1),
                               tooltip='Alternative Download with youtube-dl')]],
                        size=(150, 40), justification='center')],
 
@@ -247,7 +248,8 @@ class MainWindow:
                                     enable_events=True),
                            sg.Text(f'current value: {size_format(config.segment_size)}', size=(30, 1),
                                    key='seg_current_value')],
-                          [sg.T('Setting Folder:'), sg.Combo(values=['Local', 'Global'], default_value='Local' if config.sett_folder == config.current_directory else 'Global',
+                          [sg.T('Setting Folder:'), sg.Combo(values=['Local', 'Global'],
+                                                             default_value='Local' if config.sett_folder == config.current_directory else 'Global',
                                                              key='sett_folder', enable_events=True),
                            sg.T(config.sett_folder, key='sett_folder_text', size=(50, 1))],
                           [sg.T('')],
@@ -270,8 +272,10 @@ class MainWindow:
         log_layout = [[sg.T('Details events:')], [sg.Multiline(default_text='', size=(70, 21), key='log', font='any 8',
                                                                autoscroll=True)],
                       [sg.T('Log Level:'), sg.Combo([1, 2, 3], default_value=config.log_level, enable_events=True,
-                                                    size=(3, 1), key='log_level', tooltip='*(1=Standard, 2=Verbose, 3=Debugging)'),
-                       sg.T(f'*This log will be auto-saved at {config.sett_folder}', font='any 8', size=(70, 1), tooltip=config.current_directory),
+                                                    size=(3, 1), key='log_level',
+                                                    tooltip='*(1=Standard, 2=Verbose, 3=Debugging)'),
+                       sg.T(f'*This log will be auto-saved at {config.sett_folder}', font='any 8', size=(70, 1),
+                            tooltip=config.current_directory),
                        sg.Button('Clear Log')]]
 
         layout = [[sg.TabGroup(
@@ -1811,7 +1815,7 @@ class DownloadWindow:
 
             # [sg.Column([[sg.Button('Hide', key='hide'), sg.Button('Cancel', key='cancel')]], justification='right')],
             [sg.T(' ', key='status', size=(35, 1)), sg.Button('Hide', key='hide'), sg.Button('Cancel', key='cancel')],
-            [sg.T('', size=(100, 2),  font='any 8', key='log2')],
+            [sg.T('', size=(100, 2), font='any 8', key='log2')],
         ]
 
         self.window = sg.Window(title=self.d.name, layout=layout, finalize=True, margins=(2, 2), size=(460, 220))
@@ -1826,11 +1830,11 @@ class DownloadWindow:
         name = truncate(self.d.name, 50)
         # folder = truncate(self.d.folder, 50)
 
-        out =  f"File: {name}\n" \
-               f"downloaded: {size_format(self.d.downloaded)} out of {size_format(self.d.total_size)}\n" \
-               f"speed: {size_format(self.d.speed, '/s') }  {time_format(self.d.time_left)} left \n" \
-               f"live connections: {self.d.live_connections} - remaining parts: {self.d.remaining_parts}\n" \
-
+        out = f"File: {name}\n" \
+              f"downloaded: {size_format(self.d.downloaded)} out of {size_format(self.d.total_size)}\n" \
+              f"speed: {size_format(self.d.speed, '/s')}  {time_format(self.d.time_left)} left \n" \
+              f"live connections: {self.d.live_connections} - remaining parts: {self.d.remaining_parts}\n" \
+ \
         try:
             self.window.Element('out').Update(value=out)
 
@@ -1853,7 +1857,8 @@ class DownloadWindow:
             self.window['percent'](f"{' ' * position} {self.d.progress}%")
 
             # status update
-            self.window['status'](f"{self.d.status}  {self.d.i} {'Please wait' if self.d.status==Status.merging_audio else ''}")
+            self.window['status'](
+                f"{self.d.status}  {self.d.i} {'Please wait' if self.d.status == Status.merging_audio else ''}")
         except:
             pass
 
