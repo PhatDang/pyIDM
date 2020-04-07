@@ -11,7 +11,7 @@ import setuptools, os, sys
 # get version
 version = {}
 with open("pyidm/version.py") as f:
-    exec(f.read(), version) # later on we use: version['__version__']
+    exec (f.read(), version)  # later on we use: version['__version__']
 
 # get long description from readme
 with open("README.md", "r") as fh:
@@ -19,12 +19,12 @@ with open("README.md", "r") as fh:
 
 # get requirements
 with open("requirements.txt", "r") as fh:
-	requirements = fh.readlines()
+    requirements = fh.readlines()
 
 setuptools.setup(
     name="pyIDM",
     version=version['__version__'],
-    scripts=[], # ['pyIDM.py'], no need since added an entry_points
+    scripts=[],  # ['pyIDM.py'], no need since added an entry_points
     author="Mahmoud Elshahat",
     author_email="mahmoud_elshahhat@yahoo.com",
     description="download manager",
@@ -34,12 +34,12 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     keywords="internet download manager youtube downloader pycurl youtube-dl PySimpleGUI",
     project_urls={
-    'Source': 'https://github.com/pyIDM/pyIDM',
-    'Tracker': 'https://github.com/pyIDM/pyIDM/issues',
-    'Releases': 'https://github.com/pyIDM/pyIDM/releases',
-    'Screenshots': 'https://github.com/pyIDM/pyIDM/issues/13'
+        'Source': 'https://github.com/pyIDM/pyIDM',
+        'Tracker': 'https://github.com/pyIDM/pyIDM/issues',
+        'Releases': 'https://github.com/pyIDM/pyIDM/releases',
+        'Screenshots': 'https://github.com/pyIDM/pyIDM/issues/13'
     },
-    install_requires= requirements, #['PySimpleGUI', 'pyperclip', 'plyer', 'certifi', 'youtube_dl', 'pycurl'], 
+    install_requires=requirements,  # ['PySimpleGUI', 'pyperclip', 'plyer', 'certifi', 'youtube_dl', 'pycurl'],
     # py_modules=[],
     # data_files=[(os.path.join(sys.prefix, 'Lib/site-packages/pyidm'),['requirements.txt'])],
     # package_data={
@@ -48,7 +48,7 @@ setuptools.setup(
     # },
     # include_package_data=True,  # if plan to use MANIFEST.in
     entry_points={
-    	# our executable "exe file on windows for example"
+        # our executable "exe file on windows for example"
         'console_scripts': [
             'pyidm = pyidm.pyIDM:main',
         ]},
